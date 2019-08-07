@@ -9,8 +9,11 @@ node {
         echo 'Testing......'
     }
     stage('Deploy'){
-        if (env.BRANCH_NAME == 'master'){
-            echo 'This is master'
+        when {
+            expression { BRANCH_NAME ==~ /release\/.*/ }
+        }
+        steps {
+           sh './gradlew firTest'
         }
     }
 }
