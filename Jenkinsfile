@@ -14,7 +14,8 @@ node {
         }
         if (env.BRANCH_NAME == 'test'){
             echo 'test'
-        }else{
+        }
+        if (env.BRANCH_NAME == 'dev'){
             echo 'dev'
         }
     }
