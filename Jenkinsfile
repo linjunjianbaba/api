@@ -1,31 +1,21 @@
-pipeline {
-    agent any
-    stages{
-        stage('GitCode'){
-            steps{
-                checkout scm
-            }
+node {
+    stage('GitCode'){
+        checkout scm
+    }
+    stage('Build'){
+        echo 'Buinding.....'
+    }
+    stage('Test'){
+        echo 'Testing......'         
+    }
+    stage('Deploy'){
+        if (env.BRANCH_NAME == 'master'){
+            echo 'master'
         }
-        stage('Build'){
-            steps{
-                echo 'Buinding.....'
-            }
-        }
-        stage('Test'){
-            when {
-                expression { BRANCH_NAME == 'test' }
-            }
-            steps{
-                echo 'Testing......'
-            }           
-        }
-        stage('Deploy'){
-            when {
-                expression { BRANCH_NAME == 'master' }
-            }
-            steps {
-                sh 'echo env.BRANCH_NAME'
-            }
+        if (env.BRANCH_NAME == 'test'){
+            echo 'test'
+        }else{
+            echo 'dev'
         }
     }
 }
