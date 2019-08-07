@@ -1,19 +1,31 @@
-node {
-    stage('GitCode'){
-        checkout scm
-    }
-    stage('Build'){
-        echo 'Buinding.....'
-    }
-    stage('Test'){
-        echo 'Testing......'
-    }
-    stage('Deploy'){
-        when {
-            expression { BRANCH_NAME ==~ /release\/.*/ }
+pipeline {
+    agent any
+    stages{
+        stage('GitCode'){
+            steps{
+                checkout scm
+            }
         }
-        steps {
-           sh './gradlew firTest'
+        stage('Build'){
+            steps{
+                echo 'Buinding.....'
+            }
+        }
+        stage('Test'){
+            when {
+                expression { BRANCH_NAME == 'master' }
+            }
+            steps{
+                echo 'Testing......'
+            }           
+        }
+        stage('Deploy'){
+            when {
+                expression { BRANCH_NAME == 'master' }
+            }
+            steps {
+                sh 'echo env.BRANCH_NAME'
+            }
         }
     }
 }
