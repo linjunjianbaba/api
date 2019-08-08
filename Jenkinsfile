@@ -21,7 +21,7 @@ node(label) {
     stage('run helm'){
         container('helm') {
             sh """
-                helm version
+                helm version -n kube-system
             """
         }
     }
