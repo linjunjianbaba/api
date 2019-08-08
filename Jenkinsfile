@@ -20,7 +20,7 @@ node(label) {
     }
     stage('run helm'){
         container('helm') {
-           sh 'pwd'
+           helm version
         }
     }
     stage('mvn test'){
