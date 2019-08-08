@@ -21,7 +21,7 @@ node(label) {
     stage('run helm'){
         container('helm') {
             sh """
-                helm version
+                helm version --kubeconfig /root/.kube/conf
             """
         }
     }
@@ -33,7 +33,7 @@ node(label) {
     stage ('run kubectl'){
         container('kubectl'){
             sh """
-                kubectl get pods
+                kubectl get pods --kubeconfig /root/.kube/conf
             """
         }
     }
