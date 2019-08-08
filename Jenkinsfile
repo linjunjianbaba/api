@@ -21,7 +21,7 @@ node(label) {
     stage('run helm'){
         container('helm') {
             sh """
-                ls -a -h /root/.kube/
+                ls -a -h /home/jenkins/.kube
             """
         }
     }
@@ -33,7 +33,7 @@ node(label) {
     stage ('run kubectl'){
         container('kubectl'){
             sh """
-                ls -a -h /root/.kube/
+                ls -a -h /home/jenkins/.kube
             """
         }
     }
