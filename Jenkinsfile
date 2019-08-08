@@ -3,7 +3,7 @@ podTemplate(label: label, containers: [
   containerTemplate(name: 'maven', image: 'maven:3.6-alpine', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'docker', image: 'docker:stable', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'helm', image: 'alpine/helm:latest', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'kubectl', image: 'bitnami/kubectl:1.14.3', command: 'cat', ttyEnabled: true)
+  containerTemplate(name: 'kubectl', image: 'cnych/kubectl', command: 'cat', ttyEnabled: true)
 ], volumes: [
   hostPathVolume(mountPath: '/root/.m2', hostPath: '/var/run/m2'),
   hostPathVolume(mountPath: '/home/jenkins/.kube', hostPath: '/root/.kube'),
@@ -21,7 +21,7 @@ node(label) {
     stage('run helm'){
         container('helm') {
             sh """
-                helm version
+                helm version --kubeconfig /home/jenkins/.kube/conf
             """
         }
     }
@@ -33,7 +33,7 @@ node(label) {
     stage ('run kubectl'){
         container('kubectl'){
             sh """
-                kubectl get pods
+                kubectl get pods --kubeconfig /home/jenkins/.kube/conf
             """
         }
     }
