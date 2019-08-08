@@ -20,7 +20,9 @@ node(label) {
     }
     stage('run helm'){
         container('helm') {
-           helm version
+            sh """
+                helm version
+            """
         }
     }
     stage('mvn test'){
