@@ -40,6 +40,7 @@ node(label) {
         stage('Deploy'){
         if (env.BRANCH_NAME == 'master'){
             echo 'master'
+	    echo $version
         }
         if (env.BRANCH_NAME == 'test'){
             echo 'test'
